@@ -1,2 +1,0 @@
-# COURSERx
-Course Recomendation App
