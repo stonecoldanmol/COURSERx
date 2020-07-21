@@ -1,19 +1,14 @@
 import 'package:coursesapp/Repositories/user_repository.dart';
-
-import '../../Animation/FadeAnimation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'register.dart';
-import '../../navbar/ProfileHome.dart';
+import 'package:coursesapp/Animation/FadeAnimation.dart';
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({Key key}) : super(key: key);
-
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController emailController;
   TextEditingController passwordController;
   GlobalKey<FormState> formKey;
@@ -35,15 +30,15 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  // ignore: missing_return
-  Future<bool> signInWithCredentials({String email, String password}) async {
-    print(email);
+  Future<bool> signUpWithCredentials({String email, String password}) async {
     try {
-      var response = await _userRepository.signInWithCredentials(
-          email: email, password: password);
-
-      if (response != null) {
+      AuthResult result =
+          await _userRepository.signUp(email: email, password: password);
+      if (result != null) {
+        print(result);
         return true;
+      } else {
+        return false;
       }
     } catch (e) {
       print(e);
@@ -64,8 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 300,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage(
-                                'assets/images/edu_background_2.png'),
+                            image:
+                                AssetImage('assets/images/edu_background.png'),
                             fit: BoxFit.fill)),
                     child: Stack(
                       children: <Widget>[
@@ -162,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     onTap: () {
                                       if (formKey.currentState.validate()) {
                                         print('validated');
-                                        signInWithCredentials(
+                                        signUpWithCredentials(
                                             email: emailController.value.text,
                                             password:
                                                 passwordController.value.text);
@@ -179,57 +174,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                             Color.fromRGBO(143, 148, 251, 1),
                                             Color.fromRGBO(143, 148, 251, .8),
                                           ])),
-                                      child: Center(child: Text('Login')),
+                                      child: Center(child: Text('Register')),
                                     ),
                                   ),
                                   color: Colors.transparent,
                                 ),
                                 SizedBox(height: 10),
-                                Text(
-                                  "Forgot Password?",
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(143, 148, 251, 1)),
-                                ),
-                                SizedBox(height: 10),
                               ],
                             )),
-                        FadeAnimation(
-                            2.2,
-                            Column(
-                              children: [
-                                SignInButton(
-                                  Buttons.Email,
-                                  text: "Sign up with Email",
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => RegisterPage()),
-                                    );
-                                  },
-                                ),
-                                SignInButton(
-                                  Buttons.Google,
-                                  text: "Sign in with Google",
-                                  onPressed: () {
-                                    _userRepository
-                                        .signInWithGoogle()
-                                        .whenComplete(() => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ProfileHome()),
-                                            ));
-                                  },
-                                ),
-                                SignInButton(
-                                  Buttons.GitHub,
-                                  text: "Sign in with GitHub",
-                                  onPressed: () {},
-                                ),
-                                SizedBox(height: 10),
-                              ],
-                            ))
                       ],
                     ),
                   )
@@ -240,26 +192,3 @@ class _LoginScreenState extends State<LoginScreen> {
     )));
   }
 }
-
-// class Buttons extends StatelessWidget {
-//   final Widget text;
-//   final Function onTap;
-
-//   const Buttons({Key key, this.text, this.onTap}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FadeAnimation(
-//         2,
-//         Container(
-//           height: 50,
-//           decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(10),
-//               gradient: LinearGradient(colors: [
-//                 Color.fromRGBO(143, 148, 251, 1),
-//                 Color.fromRGBO(143, 148, 251, .8),
-//               ])),
-//           child: Center(child: text),
-//         ));
-//   }
-// }

@@ -24,16 +24,16 @@ class UserRepository {
   }
 
   //Sign in with credentials
-  Future<void> signInWithCredentials(
-      {@required String email, @required String password}) {
-    return _firebaseAuth.signInWithEmailAndPassword(
+  Future<AuthResult> signInWithCredentials(
+      {@required String email, @required String password}) async {
+    return await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
   }
 
-  Future<void> signUp(
-      {@required String email, @required String password}) async {
-    return await _firebaseAuth.createUserWithEmailAndPassword(
+  Future signUp({@required String email, @required String password}) async {
+    var authresult = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
+    return authresult;
   }
 
   Future<void> signOut() async {
