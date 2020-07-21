@@ -30,6 +30,7 @@ dependencies:
   rxdart:
   google_sign_in: ^4.0.0
   async: ^2.4.2
+  flutter_signin_button: ^1.0.0
   
 
   # The following adds the Cupertino Icons font to your application.
