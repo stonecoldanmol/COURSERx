@@ -1,7 +1,9 @@
 import 'dart:ui';
-
+import 'package:coursesapp/Repositories/user_repository.dart';
 import 'package:coursesapp/navbar/SizeConfig.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,9 +29,10 @@ class MyApp extends StatelessWidget {
 }
 
 class ProfileFirst extends StatefulWidget {
-  ProfileFirst({Key key, this.title}) : super(key: key);
+  ProfileFirst({Key key, this.title, this.user}) : super(key: key);
 
   final String title;
+  final FirebaseUser user;
 
   @override
   _ProfileFirstState createState() => _ProfileFirstState();
@@ -37,7 +40,13 @@ class ProfileFirst extends StatefulWidget {
 
 class _ProfileFirstState extends State<ProfileFirst> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserRepository>(context);
     return Scaffold(
       backgroundColor: Color(0xffF8F8FA),
       body: Stack(
@@ -59,10 +68,11 @@ class _ProfileFirstState extends State<ProfileFirst> {
                         height: 11 * SizeConfig.heightMultiplier,
                         width: 22 * SizeConfig.widthMultiplier,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/profileimg.png"))),
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage('assets/profileimg.png')),
+                        ),
                       ),
                       SizedBox(
                         width: 5 * SizeConfig.widthMultiplier,
@@ -71,7 +81,7 @@ class _ProfileFirstState extends State<ProfileFirst> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "Anmol Sinha",
+                            'Anmol 1',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 3 * SizeConfig.textMultiplier,
@@ -94,7 +104,7 @@ class _ProfileFirstState extends State<ProfileFirst> {
                                     width: 2 * SizeConfig.widthMultiplier,
                                   ),
                                   Text(
-                                    "Facebook",
+                                    'Anmol',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 1.5 * SizeConfig.textMultiplier,

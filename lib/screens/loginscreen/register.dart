@@ -32,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<bool> signUpWithCredentials({String email, String password}) async {
     try {
-      AuthResult result =
+      var result =
           await _userRepository.signUp(email: email, password: password);
       if (result != null) {
         print(result);
@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ((SafeArea(
+    return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
@@ -189,6 +189,6 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
           )),
-    )));
+    );
   }
 }
