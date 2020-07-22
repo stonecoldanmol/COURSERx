@@ -1,7 +1,8 @@
 import 'package:coursesapp/Repositories/user_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:coursesapp/navbar/ProfileHome.dart';
 import 'package:flutter/material.dart';
 import 'package:coursesapp/Animation/FadeAnimation.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -30,24 +31,9 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  Future<bool> signUpWithCredentials({String email, String password}) async {
-    try {
-      var result =
-          await _userRepository.signUp(email: email, password: password);
-      if (result != null) {
-        print(result);
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserRepository>(context);
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
@@ -157,25 +143,43 @@ class _RegisterPageState extends State<RegisterPage> {
                                     onTap: () {
                                       if (formKey.currentState.validate()) {
                                         print('validated');
-                                        signUpWithCredentials(
-                                            email: emailController.value.text,
-                                            password:
-                                                passwordController.value.text);
+                                        var email = emailController.value.text;
+                                        var password =
+                                            passwordController.value.text;
+
+                                        user.signUp(
+                                            email: email, password: password);
+
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ChangeNotifierProvider.value(
+                                                value: user,
+                                                child: ProfileHome(),
+                                              ),
+                                            ));
                                       } else {
                                         print('Error in validation');
                                       }
                                     },
-                                    child: Container(
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: LinearGradient(colors: [
-                                            Color.fromRGBO(143, 148, 251, 1),
-                                            Color.fromRGBO(143, 148, 251, .8),
-                                          ])),
-                                      child: Center(child: Text('Register')),
-                                    ),
+                                    child: user.status == Status.Authenticating
+                                        ? CircularProgressIndicator()
+                                        : Container(
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                gradient:
+                                                    LinearGradient(colors: [
+                                                  Color.fromRGBO(
+                                                      143, 148, 251, 1),
+                                                  Color.fromRGBO(
+                                                      143, 148, 251, .8),
+                                                ])),
+                                            child:
+                                                Center(child: Text('Register')),
+                                          ),
                                   ),
                                   color: Colors.transparent,
                                 ),

@@ -211,7 +211,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                RegisterPage()),
+                                                ChangeNotifierProvider.value(
+                                                  value: user,
+                                                  child: RegisterPage(),
+                                                )),
                                       );
                                     },
                                   ),
@@ -225,9 +228,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        ProfileHome()),
+                                                        ChangeNotifierProvider
+                                                            .value(
+                                                          value: user,
+                                                          child: ProfileHome(
+                                                            title: "CourserX",
+                                                          ),
+                                                        )),
                                               ))
                                           .catchError(
+                                              // ignore: sdk_version_set_literal
                                               (error) => {print(error)});
                                     },
                                   ),
