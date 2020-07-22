@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
+import 'home.dart';
+
 class ProfileHome extends StatefulWidget {
   ProfileHome({Key key, this.title}) : super(key: key);
 
@@ -15,15 +17,14 @@ class ProfileHome extends StatefulWidget {
   _ProfileHomeState createState() => _ProfileHomeState();
 }
 
-class _ProfileHomeState extends State<ProfileHome> with SingleTickerProviderStateMixin{
-
+class _ProfileHomeState extends State<ProfileHome>
+    with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
 
   List<Widget> _widgetOptions = <Widget>[
-    Home(),
+    HomeScreen(),
     ProfileSecond(),
     ProfileFirst(),
-
   ];
 
   @override
@@ -70,7 +71,6 @@ class _ProfileHomeState extends State<ProfileHome> with SingleTickerProviderStat
           ),
         ),
       ),
-
     );
   }
 }
