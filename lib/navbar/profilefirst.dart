@@ -69,7 +69,7 @@ class _ProfileFirstState extends State<ProfileFirst> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Anmol Sinha", style: TextStyle(
+                          Text("My profile", style: TextStyle(
                               color: Colors.white,
                               fontSize: 3 * SizeConfig.textMultiplier,
                               fontWeight: FontWeight.bold
