@@ -14,12 +14,14 @@ class UserRepository with ChangeNotifier {
   Status get status => _status;
   FirebaseUser get firebaseuser => _user;
 
+  //Returns a stream of firebase user authentication state to provider
   UserRepository.instance()
       : _googleSignIn = GoogleSignIn(),
         _firebaseAuth = FirebaseAuth.instance {
     _firebaseAuth.onAuthStateChanged.listen(_onAuthStateChanged);
   }
 
+  //Constructor Never used
   UserRepository({FirebaseAuth firebaseAuth, GoogleSignIn googleSignIn})
       : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn();
@@ -49,7 +51,7 @@ class UserRepository with ChangeNotifier {
     }
   }
 
-  //Sign in with credentials
+  //Sign in with credentials emails and password
   Future<bool> signInWithCredentials(
       {@required String email, @required String password}) async {
     try {
@@ -65,6 +67,7 @@ class UserRepository with ChangeNotifier {
     }
   }
 
+  //Sign up with email and password
   Future<bool> signUp(
       {@required String email, @required String password}) async {
     try {
@@ -84,6 +87,7 @@ class UserRepository with ChangeNotifier {
     }
   }
 
+  //Signs out and sets state to Unauthenticated
   Future<void> signOut() async {
     await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
     _status = Status.Unauthenticated;
@@ -91,15 +95,18 @@ class UserRepository with ChangeNotifier {
     return Future.delayed(Duration.zero);
   }
 
+  //Returns if the user is signed in
   Future<bool> isSignedIn() async {
     final currentUser = await _firebaseAuth.currentUser();
     return currentUser != null;
   }
 
+  //Returns current user
   Future<String> getUser() async {
     return (await _firebaseAuth.currentUser()).email;
   }
 
+  //Whenever firebase auth state changes, it sets the user auth state
   Future<void> _onAuthStateChanged(FirebaseUser firebaseUser) async {
     if (firebaseUser == null) {
       _status = Status.Unauthenticated;

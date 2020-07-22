@@ -16,12 +16,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController;
-  TextEditingController passwordController;
-  GlobalKey<FormState> formKey;
+  TextEditingController emailController; //Controller for email form field
+  TextEditingController passwordController; //Controller for password form field
+  GlobalKey<FormState> formKey; //Key for form
 
   @override
   void initState() {
+    //Initialization Block for controllers
     emailController = TextEditingController();
     passwordController = TextEditingController();
     formKey = GlobalKey<FormState>();

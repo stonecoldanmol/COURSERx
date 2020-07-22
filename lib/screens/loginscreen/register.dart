@@ -10,9 +10,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController emailController;
-  TextEditingController passwordController;
-  GlobalKey<FormState> formKey;
+  TextEditingController emailController; //Controller for email form field
+  TextEditingController passwordController; //Controller for password form field
+  GlobalKey<FormState> formKey; //Controller for form
   UserRepository _userRepository;
 
   @override
