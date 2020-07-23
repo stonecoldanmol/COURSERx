@@ -42,9 +42,11 @@ class UserRepository with ChangeNotifier {
       _user = await _firebaseAuth.currentUser();
       _status = Status.Authenticated;
       notifyListeners();
+      print('signed in');
       return true;
     } catch (error) {
       print(error);
+      print('error in signing in');
       _status = Status.Unauthenticated;
       notifyListeners();
       return false;

@@ -223,23 +223,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Buttons.Google,
                                     text: "Sign in with Google",
                                     onPressed: () {
-                                      user
-                                          .signInWithGoogle()
-                                          .whenComplete(() => Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ChangeNotifierProvider
-                                                            .value(
-                                                          value: user,
-                                                          child: ProfileHome(
-                                                            title: "CourserX",
-                                                          ),
-                                                        )),
-                                              ))
-                                          .catchError(
-                                              // ignore: sdk_version_set_literal
-                                              (error) => {print(error)});
+                                      user.signInWithGoogle().catchError(
+                                          // ignore: sdk_version_set_literal
+                                          (error) => {print(error)});
                                     },
                                   ),
                                   SignInButton(
