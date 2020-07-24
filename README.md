@@ -1,4 +1,4 @@
-# coursesapp
+# courserx
 
 A new Flutter application.
 
