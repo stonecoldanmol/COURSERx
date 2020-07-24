@@ -1,6 +1,7 @@
 # courserx
 
 A new Flutter application.
+It fetches the jobs from https://jobs.github.com/
 
 ## Getting Started
 
