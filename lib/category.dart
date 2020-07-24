@@ -1,4 +1,3 @@
-
 class Category {
   final String name;
   final int numOfCourses;
@@ -12,10 +11,16 @@ List<Category> categories = categoriesData
     .toList();
 
 var categoriesData = [
-  {"name": "Development", 'courses': 17, 'image': "assets/images/Development.png"},
-  {"name": "Design", 'courses': 25, 'image': "assets/images/Design.jpg"},
-  {"name": "Programming", 'courses': 13, 'image': "assets/images/Programming.jpg"},
-  {"name": "IT and Software", 'courses': 17, 'image': "assets/images/IT.jpg"},
-
-
+  {
+    "name": "Development",
+    'courses': 17,
+    'image': "assets/images/Development.png"
+  },
+  {"name": "Design", 'courses': 25, 'image': "assets/images/Design.png"},
+  {
+    "name": "Programming",
+    'courses': 13,
+    'image': "assets/images/Programming.png"
+  },
+  {"name": "IT and Software", 'courses': 17, 'image': "assets/images/IT.png"},
 ];

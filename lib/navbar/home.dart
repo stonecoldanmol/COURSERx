@@ -25,99 +25,84 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.only(left: 20, top: 50, right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        padding: EdgeInsets.only(left: 20, top: 10, right: 20),
+        child: Stack(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SvgPicture.asset("assets/icons/menu.svg"),
-                Center(
-                    child: Text(
-                  "Home",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                )),
-                Container(width: 50.0),
-              ],
-            ),
-            SizedBox(height: 30),
-            Center(
-              child: Text("COURSERx,", style: kHeadingextStyle),
-            ),
-            Center(
-              child: Text("At Your Service", style: kSubheadingextStyle),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 30),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              height: 60,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F5F7),
-                borderRadius: BorderRadius.circular(40),
-              ),
-              child: Row(
-                children: <Widget>[
-                  SvgPicture.asset("assets/icons/search.svg"),
-                  SizedBox(width: 16),
-                  Text(
-                    "Search for Courses",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Color(0xFFA0A5BD),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Category", style: kTitleTextStyle),
-              ],
-            ),
-            SizedBox(height: 30),
-            Expanded(
-              child: StaggeredGridView.countBuilder(
-                padding: EdgeInsets.all(0),
-                crossAxisCount: 2,
-                itemCount: categories.length,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.all(20),
-                    height: 240,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      image: DecorationImage(
-                        image: AssetImage(categories[index].image),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          categories[index].name,
-                          style: kTitleTextStyle,
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 30),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF5F5F7),
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      SvgPicture.asset("assets/icons/search.svg"),
+                      SizedBox(width: 16),
+                      Text(
+                        "Search for Courses",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFFA0A5BD),
                         ),
-                        Text(
-                          '${categories[index].numOfCourses} Courses',
-                          style: TextStyle(
-                            color: kTextColor.withOpacity(.5),
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                },
-                staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-              ),
+                      )
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text("Category", style: kTitleTextStyle),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Expanded(
+                  child: StaggeredGridView.countBuilder(
+                    padding: EdgeInsets.all(0),
+                    crossAxisCount: 2,
+                    itemCount: categories.length,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 15,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.all(13),
+                        height: 210,
+                        width: 210,
+                        decoration: BoxDecoration(
+                          color: Colors.indigo[100],
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text(
+                              categories[index].name,
+                              style: kTitleTextStyle,
+                            ),
+                            Image.asset(
+                              categories[index].image,
+                              fit: BoxFit.fill,
+                            ),
+                            /*Text(
+                            '${categories[index].numOfCourses} Courses',
+                            style: TextStyle(
+                              color: kTextColor.withOpacity(.5),
+                            ),
+                          )*/
+                          ],
+                        ),
+                      );
+                    },
+                    staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
